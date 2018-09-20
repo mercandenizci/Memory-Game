@@ -1,7 +1,7 @@
 const cards = document.querySelectorAll('.card');/* cards variable holds a list of all cards */
 const deck = document.querySelector('.deck');/* decks variable selects deck */
 let toggledCards = [];
-const TOTAL_PAIRS = 8;
+
 
 /* Sets moves, clocks and matches to 0 at the start of game */
 let moves = 0;
@@ -160,7 +160,8 @@ function checkForMatch() {
 		console.log('Its not a match');
 	}, 1000);
 }
-	if (matched === TOTAL_PAIRS){
+//If there are 8 mathces then the game is over
+	if (matched === 8) {
 		gameOver();
 	}
 }
@@ -179,7 +180,9 @@ function toggleModal() {
 	document.querySelector('.restart').addEventListener('click', resetGame);
 }
 
-toggleModal();//Open Modal
+toggleModal();
+toggleModal();
+
 
 /*Display time, moves and stars when modal is displayed*/
 function writeModalStats() {
@@ -200,7 +203,7 @@ function resetGame() {
 	resetMoves();
 	resetStars();
 	shuffleDeck();
-	resetCards();
+	
 }
 
 /*Stopping and resetting time*/
@@ -246,8 +249,9 @@ function getStars() {
 function gameOver() {
 	stopClock();
 	writeModalStats();
-	toggleModal();
+	toggleModal(); 
 }
+
 /*Resets gae when clicked on the reset arrow*/
 function replayGame() {
 	resetGame();
