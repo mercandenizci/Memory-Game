@@ -38,7 +38,6 @@ function hideStar() {
 /* Function to display Time */
 function displayTime() {
 	const clock = document.querySelector('.clock');
-	console.log(clock);
 	clock.innerHTML = time;
 
 	const minutes = Math.floor(time / 60);
@@ -55,7 +54,6 @@ function startClock() {
 	let clockId = setInterval(() => {
 		time++;
 		displayTime();
-		console.log(time);
 	}, 1000);
 }
 /* Function to stop the clock*/
@@ -135,7 +133,6 @@ function toggleCard(clickTarget) {
 // pushes the clickTarget into the toggledCards array
 function addToggleCard(clickTarget) {
 	toggledCards.push(clickTarget);
-	console.log(toggledCards);
 }
 
 /*Function to check for match*/
@@ -149,42 +146,24 @@ function checkForMatch() {
 		toggledCards[1].classList.toggle('match');
 		toggledCards = [];
 		matched++;
-		console.log('Its a match');
+		 if (matched === 8) {
+            gameOver();
+        }
 	}/*If it is not a match*/
 	 else {
 		setTimeout(() => {
-		
 		toggleCard(toggledCards[0]);
 		toggleCard(toggledCards[1]);
 		toggledCards = [];
-		console.log('Its not a match');
-	}, 1000);
-		}
-	if (matched === 8) {
-		toggleModal();
+		}, 1000);
 	}
-
 }
 
 /*Setting modals and adding event listeners to them*/
 function toggleModal() {
-	
-
 	const modal = document.querySelector('.modal__background');
 	modal.classList.toggle('hide');
-
-	document.querySelector('.modal__cancel').addEventListener('click', () => {
-		toggleModal();
-	});
-
-	document.querySelector('.modal__replay').addEventListener('click', replayGame);
-
-	document.querySelector('.restart').addEventListener('click', resetGame);
 }
-toggleModal();
-toggleModal()
- 
-
 
 /*Display time, moves and stars when modal is displayed*/
 function writeModalStats() {
@@ -200,11 +179,13 @@ function writeModalStats() {
 }
 
 /*Reset game function. Clock, time and moves are reset. Decks are shuffled for another game*/
+document.querySelector('.restart').addEventListener('click', resetGame);
 function resetGame() {
 	resetClockAndTime();
 	resetMoves();
 	resetStars();
 	shuffleDeck();
+	resetCards();
 	
 }
 
@@ -222,7 +203,11 @@ function resetMoves() {
 }
 /*Resetting stars*/
 function resetStars() {
-	stars = 3;
+	stars = 0;
+	const starList = document.querySelectorAll('.stars li');
+	for (star of starList) {
+		star.style.display = 'inline';
+	}
 }
 /*Resetting cards*/
 function resetCards() {
@@ -240,39 +225,24 @@ function getStars() {
 			starCount++;
 		}
 	}
-	console.log(starCount);
 	return starCount;
 }
 /*Game over function. Clock is stopped, modal pops out to display time, stars and moves*/
-/*function gameOver() {
-	if (deck .card.match === 8) {
+function gameOver() {
 		stopClock();
 		writeModalStats();
 		toggleModal(); 
-	}
-	
-}*/
+}
 
 /*Resets gae when clicked on the reset arrow*/
+document.querySelector('.modal__cancel').addEventListener('click', () => {
+		toggleModal();
+});
+
+document.querySelector('.modal__replay').addEventListener('click', replayGame);
+
 function replayGame() {
 	resetGame();
 	toggleModal();
 }
-
-function endGame(moves, time) {
-	swal({
-		allowEscapeKey: false,
-		allowOutsideClick: false,
-		title: 'Congratulations! You Won!',
-		text: 'With ' + moves + ' Moves and ' + time + ' Seconds.\n Woooooo!',
-		type: 'success',
-		confirmButtonColor: '#02ccba',
-		confirmButtonText: 'Play again!'
-	}).then(function (isConfirm) {
-		if (isConfirm) {
-			resetGame();
-		}
-	})
-}
-
 
