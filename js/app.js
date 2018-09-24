@@ -159,15 +159,17 @@ function checkForMatch() {
 		toggledCards = [];
 		console.log('Its not a match');
 	}, 1000);
-}
-//If there are 8 mathces then the game is over
+		}
 	if (matched === 8) {
-		gameOver();
+		toggleModal();
 	}
+
 }
 
 /*Setting modals and adding event listeners to them*/
 function toggleModal() {
+	
+
 	const modal = document.querySelector('.modal__background');
 	modal.classList.toggle('hide');
 
@@ -179,9 +181,9 @@ function toggleModal() {
 
 	document.querySelector('.restart').addEventListener('click', resetGame);
 }
-
 toggleModal();
-toggleModal();
+toggleModal()
+ 
 
 
 /*Display time, moves and stars when modal is displayed*/
@@ -220,11 +222,7 @@ function resetMoves() {
 }
 /*Resetting stars*/
 function resetStars() {
-	stars = 0;
-	const starList = document.querySelectorAll('.stars li');
-	for (start of starList) {
-		star.style.display = 'inline';
-	}
+	stars = 3;
 }
 /*Resetting cards*/
 function resetCards() {
@@ -246,15 +244,35 @@ function getStars() {
 	return starCount;
 }
 /*Game over function. Clock is stopped, modal pops out to display time, stars and moves*/
-function gameOver() {
-	stopClock();
-	writeModalStats();
-	toggleModal(); 
-}
+/*function gameOver() {
+	if (deck .card.match === 8) {
+		stopClock();
+		writeModalStats();
+		toggleModal(); 
+	}
+	
+}*/
 
 /*Resets gae when clicked on the reset arrow*/
 function replayGame() {
 	resetGame();
 	toggleModal();
 }
+
+function endGame(moves, time) {
+	swal({
+		allowEscapeKey: false,
+		allowOutsideClick: false,
+		title: 'Congratulations! You Won!',
+		text: 'With ' + moves + ' Moves and ' + time + ' Seconds.\n Woooooo!',
+		type: 'success',
+		confirmButtonColor: '#02ccba',
+		confirmButtonText: 'Play again!'
+	}).then(function (isConfirm) {
+		if (isConfirm) {
+			resetGame();
+		}
+	})
+}
+
 
