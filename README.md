@@ -13,5 +13,9 @@ Memory game is a simple card matching game. The game consists of 16 cards, 8 mat
 -   [jQuery](https://jquery.com)
 -   [Font Awesome](https://fontawesome.com/)
 
+## How to play
+
+You can play the game from [here](https://github.com/mercandenizci/Memory-Game)
+
 
 
