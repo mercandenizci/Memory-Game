@@ -38,7 +38,7 @@ function hideStar() {
 /* Function to display Time */
 function displayTime() {
 	const clock = document.querySelector('.clock');
-	clock.innerHTML = time;
+	
 
 	const minutes = Math.floor(time / 60);
 	const seconds = time % 60;
@@ -119,7 +119,6 @@ function isClickValid(clickTarget) {
 		!clickTarget.classList.contains('match') &&
 		toggledCards.length < 2 &&
 		!toggledCards.includes(clickTarget)
-
 	);
 
 }
@@ -186,6 +185,7 @@ function resetGame() {
 	resetStars();
 	shuffleDeck();
 	resetCards();
+	toggledCards = []
 	
 }
 
@@ -227,7 +227,7 @@ function getStars() {
 	}
 	return starCount;
 }
-/*Game over function. Clock is stopped, modal pops out to display time, stars and moves*/
+/*Game over function. Aka Wining. Clock is stopped, modal pops out to display time, stars and moves*/
 function gameOver() {
 		stopClock();
 		writeModalStats();
